@@ -10,6 +10,7 @@ import re
 from bs4 import BeautifulSoup
 from difflib import SequenceMatcher
 import pandas as pd
+import lxml
 
 import bs4
 import tempfile
@@ -29,7 +30,7 @@ def extract_address_phone(link):
 
     # Get the HTML soup
     response = urlopen(link)
-    soup = BeautifulSoup(response.read(), "html5")
+    soup = BeautifulSoup(response.read(), 'lxml')
 
     # sections[0] : Mailing/Head Office address
     # sections[3] : Telephone, Reporting Jurisdictions
@@ -61,7 +62,7 @@ def get_profile_link(company_name):
 
     # Access the URL
     response = urlopen(profile_url)
-    soup = BeautifulSoup(response.read(), "html5")
+    soup = BeautifulSoup(response.read(), 'lxml')
 
     # Find all lines containing lists, hopefully this will contain a hyperlink
     lines = soup.find_all('li' , {'class':'rt'})
